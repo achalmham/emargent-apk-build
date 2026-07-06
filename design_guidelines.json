@@ -1,0 +1,233 @@
+{
+  "app_name": "InstaVault Companion App",
+  "personality": "6 Glass / Luxe structure with 7 Dark-First Utility energy",
+  "personality_one_liner": "A premium, dark-mode gaming zone where electric neon accents and frosted glass create a high-stakes, exclusive rewards experience.",
+  "color": {
+    "surface": "#080A10",
+    "onSurface": "#F8FAFC",
+    "surfaceSecondary": "#111520",
+    "onSurfaceSecondary": "#CBD5E1",
+    "surfaceTertiary": "#1A2030",
+    "onSurfaceTertiary": "#94A3B8",
+    "surfaceInverse": "#FFFFFF",
+    "onSurfaceInverse": "#080A10",
+    "brand": "#8B5CF6",
+    "brandPrimary": "#D946EF",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#F43F5E",
+    "onBrandSecondary": "#FFFFFF",
+    "brandTertiary": "#6D28D9",
+    "onBrandTertiary": "#E9D5FF",
+    "success": "#10B981",
+    "onSuccess": "#FFFFFF",
+    "warning": "#F59E0B",
+    "onWarning": "#FFFFFF",
+    "error": "#EF4444",
+    "onError": "#FFFFFF",
+    "info": "#3B82F6",
+    "onInfo": "#FFFFFF",
+    "border": "#1E293B",
+    "borderStrong": "#334155",
+    "divider": "#1E293B"
+  },
+  "typography": {
+    "displayFontFamily": "Space Grotesk",
+    "textFontFamily": "Plus Jakarta Sans",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous vertical breathing room for cinematic feel; rigid padding on utility grids. Strict bottom-safe-area padding for sticky CTAs.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "0",
+  "navigation": "bottom_tabs",
+  "icon_set": "Lucide",
+  "glassmorphism": {
+    "enabled": true,
+    "do's": [
+      "Use heavy tint (≥75% opacity) underneath blur to ensure readability against moody dark backgrounds",
+      "Apply to sticky headers, bottom tab bar, bottom-sheet handles, and primary 'Premium' task cards",
+      "Add faint white edge highlights (1px border, 10% opacity) to glass panels for spatial depth"
+    ],
+    "dont's": [
+      "Don't stack more than two glass layers",
+      "Don't use on dense list rows or form inputs",
+      "Don't rely on blur alone without underlying dark tint"
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Splash",
+      "purpose": "1.5s cinematic logo reveal establishing the premium, electric-neon aesthetic.",
+      "states": {
+        "loading": "Animated '⚡' gradient glow scaling up",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Full screen cinematic dark abstract background. Centered custom ⚡ logo with violet->magenta->coral gradient glow using Skia. Animated scale and fade."
+    },
+    {
+      "name": "Onboarding",
+      "purpose": "3-slide introduction to the value prop (Earn Sparks, Play Games, Order Views) with high-end visuals.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Full-bleed abstract background image per slide with vertical gradient scrim (transparent to surface). Text and primary 'Next/Continue' pill button in the bottom 30%. Indicator dots centered above CTA."
+    },
+    {
+      "name": "Login",
+      "purpose": "Secure, trustworthy entry via Telegram + OTP.",
+      "states": {
+        "loading": "Spinner on CTA",
+        "empty": "N/A",
+        "error": "Standard error toast"
+      },
+      "layout": "Centered layout with deep navy background. Glass-morphic card holding the Telegram login CTA (Telegram logo + 'Continue with Telegram'). After press, reveals 4-digit OTP input with trust badges below (Lucide lock icon + 'Secured by InstaVault')."
+    },
+    {
+      "name": "Home",
+      "purpose": "Main dashboard showing Sparks balance, daily streak, tasks, and social proof ticker.",
+      "states": {
+        "loading": "Skeleton cards with subtle pulse",
+        "empty": "N/A",
+        "error": "Retry boundary"
+      },
+      "layout": "Sticky glass header with Avatar, greeting ('Hi, Achal'), and bell icon. Top section: Sparks Balance Card (glass over gradient) with animated number counter and Daily Streak Ring ('Aaj ka Target' progress). Scrollable body: 5 CPA-style task cards (Install & Play, etc.) in a single column. Bottom edge of screen (above tabs): Live Activity social proof ticker (small transparent pill sliding up)."
+    },
+    {
+      "name": "Task Detail",
+      "purpose": "Detailed view of a task with steps and sticky Start CTA.",
+      "states": {
+        "loading": "Spinner",
+        "empty": "N/A",
+        "error": "Retry CTA"
+      },
+      "layout": "Full-bleed banner image with heavy bottom scrim. Floating reward chip (Sparks + quantity). Body: Steps checklist in surfaceSecondary cards. Bottom: Sticky 'Start Task' CTA in a glass container. Mock flow on press leads to success animation."
+    },
+    {
+      "name": "Games",
+      "purpose": "Hub for playable mini-games to spend/earn Sparks.",
+      "states": {
+        "loading": "Skeleton grid",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "2-column grid for game thumbnails (Scratch Card, Lucky Dice, etc.) with 'Coming Soon' overlay. Top featured full-width card for 'Spin the Wheel' (fully playable layout placeholder). Each card shows thumbnail, attempts left, and reward range in Hinglish."
+    },
+    {
+      "name": "Spin The Wheel",
+      "purpose": "Playable game screen for Spin the Wheel.",
+      "states": {
+        "loading": "Spinner",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Centered animated wheel using Skia or Reanimated. Big 'SPIN' button. Sparks balance at top. Confetti on win."
+    },
+    {
+      "name": "Earn",
+      "purpose": "CPA offer wall with filters.",
+      "states": {
+        "loading": "Skeleton list",
+        "empty": "Illustration of empty wallet + 'No offers today'",
+        "error": "Retry button"
+      },
+      "layout": "Sticky top row of pill-shaped filter chips (Quick, High Reward, New). Single-column scrollable list of high-density offer cards showing brand logo, title, description, and Sparks reward chip."
+    },
+    {
+      "name": "Rewards",
+      "purpose": "Daily check-in and milestone rewards.",
+      "states": {
+        "loading": "Skeleton grid",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Top section: 7-day Check-in Streak horizontal grid. Middle: 3D-styled Mystery Box card (placeholder for animation). Bottom: Bonus milestone cards and 'Watch Ad' card."
+    },
+    {
+      "name": "Profile",
+      "purpose": "User stats, linked Instagram, and settings.",
+      "states": {
+        "loading": "Skeleton",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Cover header image with bottom scrim. Overlapping Avatar. Stats row (Total Sparks, Tasks Done). Glass card for linked Instagram handle with verified badge. Primary sticky CTA 'Order Views on Bot' (deep link out). Bottom: Achievement badges grid and settings list."
+    }
+  ],
+  "images": {
+    "telegram_logo": {
+      "url": "https://images.unsplash.com/photo-1637592156979-95f44c286423?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwxfHxUZWxlZ3JhbSUyMGxvZ28lMjB0cmFuc3BhcmVudHxlbnwwfHx8fDE3ODMzMjk5MDJ8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Telegram logo"
+    },
+    "instagram_logo": {
+      "url": "https://images.pexels.com/photos/3850266/pexels-photo-3850266.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Instagram logo"
+    },
+    "background_neon_1": {
+      "url": "https://images.unsplash.com/photo-1620207418302-439b387441b0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHxjaW5lbWF0aWMlMjBhYnN0cmFjdCUyMG5lb24lMjBnbG93JTIwZGFyayUyMGJhY2tncm91bmQlMjB2aW9sZXQlMjBtYWdlbnRhJTIwY29yYWx8ZW58MHx8fHwxNzgzMzI5OTAyfDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Neon abstract wave background"
+    },
+    "background_neon_2": {
+      "url": "https://images.unsplash.com/photo-1563089145-599997674d42?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwyfHxjaW5lbWF0aWMlMjBhYnN0cmFjdCUyMG5lb24lMjBnbG93JTIwZGFyayUyMGJhY2tncm91bmQlMjB2aW9sZXQlMjBtYWdlbnRhJTIwY29yYWx8ZW58MHx8fHwxNzgzMzI5OTAyfDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Neon particle abstract background"
+    },
+    "avatar_achal": {
+      "url": "https://images.unsplash.com/photo-1764546373114-2d7a87221733?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBJbmRpYW4lMjBtYW4lMjBwb3J0cmFpdCUyMG1vZGVybiUyMGRhcmslMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc4MzMyOTkwMnww&ixlib=rb-4.1.0&q=85",
+      "alt": "Avatar for Achal"
+    },
+    "roulette_thumbnail": {
+      "url": "https://images.unsplash.com/photo-1726004044534-e10fc99783f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwzfHxjYXNpbm8lMjByb3VsZXR0ZSUyMHdoZWVsJTIwZGFyayUyMG1vb2R5JTIwM2QlMjByZW5kZXJ8ZW58MHx8fHwxNzgzMzI5OTAyfDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Casino roulette 3D render thumbnail"
+    }
+  },
+  "haptics": {
+    "primary_button": "impactMedium",
+    "tab_press": "impactLight",
+    "wheel_spin": "impactHeavy",
+    "reward_toast": "notificationSuccess",
+    "streak_ring_fill": "impactMedium"
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the explicitly requested 'electric gradient accents (violet → magenta → coral)' on the base of 'deep navy / near-black'. Do NOT use gray/black substitutes for primary accents; this is a user override.",
+    "Implement the custom '⚡' Sparks icon with a linear gradient across everywhere it is used. Use expo-linear-gradient with mask or Skia if needed.",
+    "Ensure the UI mimics high-end fin-tech/gaming like CRED. Use glassmorphism on primary balance cards, sticky headers, and bottom nav.",
+    "No cartoon illustrations. Use the provided abstract neon/moody background images with heavy bottom scrims (≥75% opacity) to ensure readability.",
+    "Animate the Sparks balance counter (count-up effect) and Daily Streak Ring progress on the Home screen using Reanimated.",
+    "All copy MUST use natural Hinglish as requested (e.g., 'Sparks kamao', 'Aaj ka target', 'Spin karo aur jeeto').",
+    "Include subtle success modals (confetti/coin-burst) when tasks are completed or rewards are claimed.",
+    "Sticky primary CTA buttons must be in a fixed container outside the scrolling ScrollView with proper bottom safe area spacing."
+  ]
+}
