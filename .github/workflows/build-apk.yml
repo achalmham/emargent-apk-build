@@ -68,19 +68,20 @@ jobs:
           cd frontend/android
           ./gradlew assembleRelease
 
-      - name: Sign APK
-        uses: r0adkll/sign-android-release@v1
-        id: sign_app
-        with:
-          releaseDirectory: frontend/android/app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-          buildToolsVersion: "34.0.0"
+      - name: Sign APK Manually
+        run: |
+          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > frontend/android/app/instavault-release-key.jks
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | tail -1)
+          echo "Using Android Build Tools from: $BUILD_TOOLS_DIR"
+          UNSIGNED_APK=$(find frontend/android/app/build/outputs/apk/release/ -name "*.apk" | head -1)
+          echo "Signing APK: $UNSIGNED_APK"
+          $BUILD_TOOLS_DIR/zipalign -f -v 4 "$UNSIGNED_APK" frontend/android/app/build/outputs/apk/release/app-release-aligned.apk
+          $BUILD_TOOLS_DIR/apksigner sign --ks frontend/android/app/instavault-release-key.jks --ks-key-alias "${{ secrets.ALIAS }}" --ks-pass pass:"${{ secrets.KEY_STORE_PASSWORD }}" --key-pass pass:"${{ secrets.KEY_PASSWORD }}" --out frontend/android/app/build/outputs/apk/release/app-release-signed.apk frontend/android/app/build/outputs/apk/release/app-release-aligned.apk
+          $BUILD_TOOLS_DIR/apksigner verify frontend/android/app/build/outputs/apk/release/app-release-signed.apk
+          rm -f frontend/android/app/instavault-release-key.jks
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: InstaVault-Production-APK
-          path: ${{ steps.sign_app.outputs.signedReleaseFile }}
+          path: frontend/android/app/build/outputs/apk/release/app-release-signed.apk
