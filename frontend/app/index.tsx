@@ -57,7 +57,7 @@ export default function Splash() {
         </Text>
       </Animated.View>
       <Animated.Text style={[styles.tagline, tagStyle]}>
-        Sparks kamao. Real growth pao.
+        Sparks kamao. Real growth pao. [Updated Version]
       </Animated.Text>
     </View>
   );
