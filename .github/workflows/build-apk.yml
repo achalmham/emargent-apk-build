@@ -33,6 +33,19 @@ jobs:
           cd frontend
           yarn install
 
+      - name: Increment Android Version Code
+        run: |
+          cd frontend
+          node -e "
+          const fs = require('fs');
+          const app = JSON.parse(fs.readFileSync('app.json'));
+          app.expo.android.versionCode = parseInt(process.env.GITHUB_RUN_NUMBER) + 10;
+          console.log('Building with versionCode:', app.expo.android.versionCode);
+          fs.writeFileSync('app.json', JSON.stringify(app, null, 2));
+          "
+        env:
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
+
       - name: Prebuild Android project
         run: |
           cd frontend
@@ -44,13 +57,23 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x frontend/android/gradlew
 
-      - name: Build Debug APK
+      - name: Build Release APK
         run: |
           cd frontend/android
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
+
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: frontend/android/app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: InstaVault-Debug-APK
-          path: frontend/android/app/build/outputs/apk/debug/app-debug.apk
+          name: InstaVault-Production-APK
+          path: ${{ steps.sign_app.outputs.signedReleaseFile }}
