@@ -67,7 +67,7 @@ export default function Home() {
             <Image source={{ uri: USER.avatar }} style={styles.avatar} contentFit="cover" />
           </Pressable>
           <View style={{ flex: 1 }}>
-            <Text style={styles.greetSmall}>Namaste 👋</Text>
+            <Text style={styles.greetSmall}>Namaste 👋 [UPDATE SUCCESS!]</Text>
             <Text style={styles.greetName}>{USER.name}</Text>
           </View>
           <Pressable testID="home-notification-bell" style={styles.bell} onPress={() => haptic("light")}>
